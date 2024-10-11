@@ -25,12 +25,12 @@ class TssCallbackWithData: NSObject, TssCallbackWithDataProtocol {
     }
 }
 
-class UCW: UCWPublic {
+public class UCWSDK: UCWSDKPublic {
     var config: SDKConfig
     var connCode: ConnCode
     var connMessage: String?
 
-    init(config: SDKConfig, secretsFile: String, passphrase: String, connCallback: @escaping(ConnCode, String?) -> Void = { _, _ in }) throws {
+    public init(config: SDKConfig, secretsFile: String, passphrase: String, connCallback: @escaping(ConnCode, String?) -> Void = { _, _ in }) throws {
         self.config = config
         self.connCode = ConnCode.CodeUnknown
         self.connMessage = nil
@@ -88,11 +88,11 @@ class UCW: UCWPublic {
         self.connMessage = nil
     }
 
-    func getConnStatus() -> (ConnCode, String?) {
+    public func getConnStatus() -> (ConnCode, String?) {
         return (self.connCode, self.connMessage)
     }
 
-    func listPendingTSSRequests() async throws -> [TSSRequest] {
+    public func listPendingTSSRequests() async throws -> [TSSRequest] {
         return try await withCheckedThrowingContinuation { continuation in
             TssListPendingTSSRequests(self.handler, self.config.timeout, TssCallbackWithData { code, message, data in
                 if code != SDKErrorCode.success.rawValue {
@@ -121,7 +121,7 @@ class UCW: UCWPublic {
         }
     }
 
-    func getTSSRequests(tssRequestIDs: [String]) async throws -> [TSSRequest] {
+    public func getTSSRequests(tssRequestIDs: [String]) async throws -> [TSSRequest] {
         return try await withCheckedThrowingContinuation { continuation in
             let jsonData: Data
             do {
@@ -162,7 +162,7 @@ class UCW: UCWPublic {
         }
     }
 
-    func approveTSSRequests(tssRequestIDs: [String]) throws {
+    public func approveTSSRequests(tssRequestIDs: [String]) throws {
         let jsonData: Data
         do {
             jsonData = try JSONSerialization.data(withJSONObject: tssRequestIDs, options: [])
@@ -183,7 +183,7 @@ class UCW: UCWPublic {
         }
     }
 
-    func rejectTSSRequests(tssRequestIDs: [String], reason: String) throws {
+    public func rejectTSSRequests(tssRequestIDs: [String], reason: String) throws {
         let jsonData: Data
         do {
             jsonData = try JSONSerialization.data(withJSONObject: tssRequestIDs, options: [])
@@ -204,7 +204,7 @@ class UCW: UCWPublic {
         }
     }
 
-    func listPendingTransactions() async throws -> [Transaction] {
+    public func listPendingTransactions() async throws -> [Transaction] {
         return try await withCheckedThrowingContinuation { continuation in
             TssListPendingTransactions(self.handler, self.config.timeout, TssCallbackWithData { code, message, data in
                 if code != SDKErrorCode.success.rawValue {
@@ -232,7 +232,7 @@ class UCW: UCWPublic {
         }
     }
 
-    func getTransactions(transactionIDs: [String]) async throws -> [Transaction] {
+    public func getTransactions(transactionIDs: [String]) async throws -> [Transaction] {
         return try await withCheckedThrowingContinuation { continuation in
             let jsonData: Data
             do {
@@ -273,7 +273,7 @@ class UCW: UCWPublic {
         }
     }
 
-    func approveTransactions(transactionIDs: [String]) throws {
+    public func approveTransactions(transactionIDs: [String]) throws {
         let jsonData: Data
         do {
             jsonData = try JSONSerialization.data(withJSONObject: transactionIDs, options: [])
@@ -294,7 +294,7 @@ class UCW: UCWPublic {
         }
     }
 
-    func rejectTransactions(transactionIDs: [String], reason: String) throws {
+    public func rejectTransactions(transactionIDs: [String], reason: String) throws {
         let jsonData: Data
         do {
             jsonData = try JSONSerialization.data(withJSONObject: transactionIDs, options: [])
@@ -315,7 +315,7 @@ class UCW: UCWPublic {
         }
     }
 
-    func exportSecrets(exportPassphrase: String) throws -> String {
+    public func exportSecrets(exportPassphrase: String) throws -> String {
         guard let result = TssExportSecrets(self.handler, exportPassphrase) else {
             throw SDKError.commonError(code: SDKErrorCode.commonError, message: "Failed to export secrets")
         }
@@ -333,7 +333,7 @@ class UCW: UCWPublic {
         }
     }
 
-    func exportRecoveryKeyShares(tssKeyShareGroupIDs: [String], exportPassphrase: String) throws -> String {
+    public func exportRecoveryKeyShares(tssKeyShareGroupIDs: [String], exportPassphrase: String) throws -> String {
         let jsonData: Data
         do {
             jsonData = try JSONSerialization.data(withJSONObject: tssKeyShareGroupIDs, options: [])
@@ -363,7 +363,7 @@ class UCW: UCWPublic {
     }
 
 //
-//    func SignWithKeyShare(tssKeyShareGroupID: String, nonce: String, message: String) throws -> String {
+//    public func SignWithKeyShare(tssKeyShareGroupID: String, nonce: String, message: String) throws -> String {
 //        guard let result = TssKeyShareSign(self.handler, groupID, nonce, message) else {
 //            throw SdkError.commonError(code: SDKErrorCode.commonError, message: "Failed to key share sign")
 //        }
@@ -382,11 +382,11 @@ class UCW: UCWPublic {
 //    }
 }
 
-class UCWPublic {
+public class UCWSDKPublic {
     var handler: String?
     var secretsFile: String
 
-    init(secretsFile: String) throws {
+    public init(secretsFile: String) throws {
         self.secretsFile = secretsFile
         self.handler = nil
         try self.openPublic()
@@ -434,7 +434,7 @@ class UCWPublic {
         self.handler = nil
     }
 
-    func getTSSNodeID() throws -> String {
+    public func getTSSNodeID() throws -> String {
         guard let result = TssGetTSSNodeID(self.handler) else {
             throw SDKError.commonError(code: SDKErrorCode.commonError, message: "Failed to get node info")
         }
@@ -452,7 +452,7 @@ class UCWPublic {
         }
     }
 
-    func getTSSKeyShareGroups(tssKeyShareGroupIDs: [String]) throws -> [TSSKeyShareGroup] {
+    public func getTSSKeyShareGroups(tssKeyShareGroupIDs: [String]) throws -> [TSSKeyShareGroup] {
         let jsonData: Data
         do {
             jsonData = try JSONSerialization.data(withJSONObject: tssKeyShareGroupIDs, options: [])
@@ -485,7 +485,7 @@ class UCWPublic {
         }
     }
 
-    func listTSSKeyShareGroups()  throws -> [TSSKeyShareGroup] {
+    public func listTSSKeyShareGroups()  throws -> [TSSKeyShareGroup] {
         guard let result = TssListTSSKeyShareGroups(self.handler) else {
             throw SDKError.commonError(code: SDKErrorCode.commonError, message: "Failed to get all group info")
         }
@@ -509,10 +509,10 @@ class UCWPublic {
 }
 
 
-class UCWRecoverKey {
+public class UCWRecoverKey {
     var tssKeyShareGroupID: String
 
-    init(tssKeyShareGroupID: String) {
+    public init(tssKeyShareGroupID: String) {
         self.tssKeyShareGroupID = tssKeyShareGroupID
     }
 
@@ -526,7 +526,7 @@ class UCWRecoverKey {
         self.tssKeyShareGroupID = ""
     }
 
-    func importRecoveryKeyShare(jsonRecoverySecrets: String, exportPassphrase: String) throws {
+    public func importRecoveryKeyShare(jsonRecoverySecrets: String, exportPassphrase: String) throws {
         guard let result = TssImportRecoveryKeyShare(self.tssKeyShareGroupID, jsonRecoverySecrets, exportPassphrase) else {
             throw SDKError.commonError(code: SDKErrorCode.commonError, message: "Failed to add recovery key shares")
         }
@@ -536,7 +536,7 @@ class UCWRecoverKey {
         }
     }
 
-    func recoverPrivateKeys(addressInfos: [AddressInfo]) throws -> [PrivateKeyInfo] {
+    public func recoverPrivateKeys(addressInfos: [AddressInfo]) throws -> [PrivateKeyInfo] {
         let jsonData: Data
         do {
             let encoder = JSONEncoder()
@@ -571,7 +571,7 @@ class UCWRecoverKey {
     }
 }
 
-func getSDKInfo() throws -> SDKInfo {
+public func getSDKInfo() throws -> SDKInfo {
     guard let result = TssGetSDKInfo() else {
         throw SDKError.commonError(code: SDKErrorCode.commonError, message: "Failed to get SDK info")
     }
@@ -590,7 +590,7 @@ func getSDKInfo() throws -> SDKInfo {
 }
 
 
-func initializeSecrets(secretsFile: String, passphrase: String) async throws -> String {
+public func initializeSecrets(secretsFile: String, passphrase: String) async throws -> String {
     return try await withCheckedThrowingContinuation { continuation in
         TssInitializeSecrets(secretsFile, passphrase, TssCallbackWithData { code, message, data in
             if code != SDKErrorCode.success.rawValue {
@@ -615,7 +615,7 @@ func initializeSecrets(secretsFile: String, passphrase: String) async throws -> 
 }
 
 
-func importSecrets(jsonRecoverySecrets: String, exportPassphrase: String, newSecretsFile: String, newPassphrase: String) throws -> String {
+public func importSecrets(jsonRecoverySecrets: String, exportPassphrase: String, newSecretsFile: String, newPassphrase: String) throws -> String {
     guard let result = TssImportSecrets(jsonRecoverySecrets, exportPassphrase, newSecretsFile, newPassphrase) else {
         throw SDKError.commonError(code: SDKErrorCode.commonError, message: "Failed to import secrets")
     }
@@ -645,7 +645,7 @@ class TssLogger: NSObject, TssLoggerProtocol {
     }
 }
 
-func setLogger(completion: @escaping (String?, String?) -> Void) {
+public func setLogger(completion: @escaping (String?, String?) -> Void) {
     let logger = TssLogger(completion: completion)
     TssSetLogger(logger)
 }

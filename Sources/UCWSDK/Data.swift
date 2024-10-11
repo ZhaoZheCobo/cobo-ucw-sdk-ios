@@ -19,7 +19,7 @@ enum SDKErrorCode: Int32 {
     }
 }
 
-enum Status: Int32, Codable {
+public enum Status: Int32, Codable {
     case unknown = 100
     case scheduling = 110
     case initializing = 120
@@ -31,18 +31,18 @@ enum Status: Int32, Codable {
     case completed = 190
 }
 
-enum NodeType: Int32, Codable {
+public enum NodeType: Int32, Codable {
     case coboCoSigner = 20
     case mobileCoSigner = 30
     case apiCoSigner = 31
 }
 
-enum GroupType: Int32, Codable {
+public enum GroupType: Int32, Codable {
     case ecdsaTSS = 1
     case eddsaTSS = 2
 }
 
-enum ConnCode: Int32 {
+public enum ConnCode: Int32 {
     case CodeUnknown = 0
 
     case CodeConnected = 1300
@@ -59,26 +59,32 @@ enum ConnCode: Int32 {
     case CodeConnectProxyParseError = 1351
 }
 
-struct SDKConfig {
-    let env: Env
-    // let txVerifyURL: String
-    let timeout: Int32
-    let debug: Bool
+public struct SDKConfig {
+    public let env: Env
+    public let timeout: Int32
+    // public let txVerifyURL: String
+    public let debug: Bool
+
+    public init(env: Env, timeout: Int32, debug: Bool) {
+        self.env = env
+        self.timeout = timeout
+        self.debug = debug
+    }
 }
 
-enum Env: String {
+public enum Env: String {
     case development = "development"
     case production = "production"
     case local = "local"
 }
 
-struct AddressInfo: Codable {
-    let bip32Path: String
-    let pubKey: String
+public struct AddressInfo: Codable {
+    public let bip32Path: String
+    public let pubKey: String
 
-    enum CodingKeys: String, CodingKey {
-        case bip32Path = "bip32_path"
-        case pubKey = "extended_public_key"
+    public init(bip32Path: String, pubKey: String) {
+        self.bip32Path = bip32Path
+        self.pubKey = pubKey
     }
 }
 
@@ -106,7 +112,7 @@ struct NodeResult: Codable {
     }
 }
 
-struct SDKInfo: Codable {
+public struct SDKInfo: Codable {
     let version: String
 
     enum CodingKeys: String, CodingKey {
@@ -122,7 +128,7 @@ struct RecoverResult: Codable {
     }
 }
 
-struct PrivateKeyInfo: Codable {
+public struct PrivateKeyInfo: Codable {
     let bip32Path: String
     let publicKey: String
     let privateKey: PrivateKey?
@@ -160,18 +166,18 @@ struct GroupResult: Codable {
     }
 }
 
-struct TSSKeyShareGroup: Codable {
-    let tssKeyShareGroupID: String
-    // let canonicalGroupID: String
-    // let protocolGroupID: String
-    // let protocolType: String
-    let createdTime: String
-    let type: GroupType
-    let rootPubKey: String
-    let chainCode: String
-    let curve: String
-    let threshold: Int32
-    let participants: [SharePublicData]?
+public struct TSSKeyShareGroup: Codable {
+    public let tssKeyShareGroupID: String
+    // public let canonicalGroupID: String
+    // public let protocolGroupID: String
+    // public let protocolType: String
+    public let createdTime: String
+    public let type: GroupType
+    public let rootPubKey: String
+    public let chainCode: String
+    public let curve: String
+    public let threshold: Int32
+    public let participants: [SharePublicData]?
 
     enum CodingKeys: String, CodingKey {
         case tssKeyShareGroupID = "id"
@@ -188,10 +194,10 @@ struct TSSKeyShareGroup: Codable {
      }
 }
 
-struct SharePublicData: Codable {
-    let tssNodeID: String
-    let shareID: String
-    let sharePubKey: String
+public struct SharePublicData: Codable {
+    public let tssNodeID: String
+    public let shareID: String
+    public let sharePubKey: String
 
     enum CodingKeys: String, CodingKey {
         case tssNodeID = "node_id"
@@ -208,9 +214,9 @@ struct TSSRequestResult: Codable {
     }
 }
 
-struct TSSRequest: Codable {
-    let tssRequestID: String
-    let status: Status
+public struct TSSRequest: Codable {
+    public let tssRequestID: String
+    public let status: Status
 
     // org
     // project
@@ -219,8 +225,8 @@ struct TSSRequest: Codable {
     // targetKeyShareHolderGroup
     // tssRequest
 
-    let results: [TSSKeyShareGroup]?
-    let failedReasons: [String]?
+    public let results: [TSSKeyShareGroup]?
+    public let failedReasons: [String]?
 
     enum CodingKeys: String, CodingKey {
         case tssRequestID = "tss_request_id"
@@ -238,9 +244,9 @@ struct TransactionResult: Codable {
       }
 }
 
-struct Transaction: Codable {
-    let transactionID: String
-    let status: Status
+public struct Transaction: Codable {
+    public let transactionID: String
+    public let status: Status
 
     // org
     // project
@@ -249,9 +255,9 @@ struct Transaction: Codable {
     // signerKeyShareHolderGroup
     // transaction
 
-    let signDetails: [SignDetail]?
-    let results: [Signatures]?
-    let failedReasons: [String]?
+    public let signDetails: [SignDetail]?
+    public let results: [Signatures]?
+    public let failedReasons: [String]?
 
     enum CodingKeys: String, CodingKey {
         case transactionID = "transaction_id"
@@ -262,12 +268,12 @@ struct Transaction: Codable {
      }
 }
 
-struct SignDetail: Codable {
-    var signatureType: Int32
-    var tssProtocol: Int32
-    var bip32PathList: [String]?
-    var msgHashList: [String]?
-    var tweakList: [String]?
+public struct SignDetail: Codable {
+    public let signatureType: Int32
+    public let tssProtocol: Int32
+    public let bip32PathList: [String]?
+    public let msgHashList: [String]?
+    public let tweakList: [String]?
 
     enum CodingKeys: String, CodingKey {
         case signatureType = "signature_type"
@@ -278,10 +284,10 @@ struct SignDetail: Codable {
     }
 }
 
-struct Signatures: Codable {
-    var signatures: [Signature]?
-    var signatureType: Int32?
-    var tssProtocol: Int32?
+public struct Signatures: Codable {
+    public let signatures: [Signature]?
+    public let signatureType: Int32?
+    public let tssProtocol: Int32?
 
     enum CodingKeys: String, CodingKey {
         case signatures = "signatures"
@@ -290,12 +296,12 @@ struct Signatures: Codable {
     }
 }
 
-struct Signature: Codable {
-    let bip32Path: String
-    let msgHash: String
-    var tweak: String?
-    let signature: String?
-    let signatureRecovery: String?
+public struct Signature: Codable {
+    public let bip32Path: String
+    public let msgHash: String
+    public let tweak: String?
+    public let signature: String?
+    public let signatureRecovery: String?
 
     enum CodingKeys: String, CodingKey {
         case bip32Path = "bip32_path"
