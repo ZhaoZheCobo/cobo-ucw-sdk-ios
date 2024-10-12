@@ -5,12 +5,14 @@ import PackageDescription
 
 let package = Package(
     name: "UCWSDK",
-    platforms: [.iOS(.v13)],
+    platforms: [.iOS(.v14)],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "UCWSDK",
             targets: ["UCWSDK"]),
+    ],
+    dependencies: [
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -23,7 +25,7 @@ let package = Package(
         ),
         .binaryTarget(
                     name: "TSSSDK",
-                    path: "./TSSSDK.xcframework"
+                    path: "TSSSDK.xcframework"
                 ),
     ]
 )

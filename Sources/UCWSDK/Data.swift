@@ -62,7 +62,6 @@ public enum ConnCode: Int32 {
 public struct SDKConfig {
     public let env: Env
     public let timeout: Int32
-    // public let txVerifyURL: String
     public let debug: Bool
 
     public init(env: Env, timeout: Int32, debug: Bool) {
