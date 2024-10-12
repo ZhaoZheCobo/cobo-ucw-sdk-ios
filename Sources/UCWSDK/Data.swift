@@ -1,11 +1,11 @@
 import Foundation
 
-enum SDKError: Error {
+public enum SDKError: Error {
     case commonError(code : SDKErrorCode, message: String)
     case apiError(code : Int32, message: String?)
 }
 
-enum SDKErrorCode: Int32 {
+public enum SDKErrorCode: Int32 {
     case success = 0
     case commonError = 9000
 
