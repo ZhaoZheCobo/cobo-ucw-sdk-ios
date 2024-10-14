@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "UCWSDK",
+    platforms: [.iOS(.v13)],
     products: [
         .library(
             name: "UCWSDK",
