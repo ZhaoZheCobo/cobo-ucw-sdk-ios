@@ -1,8 +1,0 @@
-framework module "TSSSDK" {
-	header "ref.h"
-    header "Tss.objc.h"
-    header "Universe.objc.h"
-    header "TSSSDK.h"
-
-    export *
-}

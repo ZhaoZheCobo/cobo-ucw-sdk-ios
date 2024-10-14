@@ -1,31 +1,26 @@
-// swift-tools-version: 6.0
+// swift-tools-version: 5.9
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
 let package = Package(
     name: "UCWSDK",
-    platforms: [.iOS(.v14)],
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "UCWSDK",
             targets: ["UCWSDK"]),
     ],
-    dependencies: [
-    ],
+    
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "UCWSDK",
             dependencies: [
                 .target(name: "TSSSDK")
             ]
         ),
-        .binaryTarget(
-                    name: "TSSSDK",
-                    path: "TSSSDK.xcframework"
-                ),
+        .binaryTarget(name: "TSSSDK", 
+            url: "https://github.com/ZhaoZheCobo/cobo-ucw-sdk-ios2/releases/download/v0.1.0/cobo-tss-sdk-v2-ios.zip", 
+            checksum: "6e95589d04e5a94f7cfc49de5d6da71b4ee067613848de6934e8a2f977afee90"
+        ),
     ]
 )
