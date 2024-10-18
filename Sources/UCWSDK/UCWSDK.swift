@@ -25,7 +25,7 @@ class TssCallbackWithData: NSObject, TssCallbackWithDataProtocol {
     }
 }
 
-public class UCWSDK: UCWSDKPublic {
+public class UCW: UCWPublic {
     var config: SDKConfig
     var connCode: ConnCode
     var connMessage: String?
@@ -40,7 +40,7 @@ public class UCWSDK: UCWSDKPublic {
     }
 
     deinit {
-        print("UCWSDK deinitialization")
+        print("UCW deinitialization")
     }
 
     private func open(passphrase: String, connCallback: @escaping(ConnCode, String?) -> Void = { _, _ in }) throws {
@@ -382,7 +382,7 @@ public class UCWSDK: UCWSDKPublic {
 //    }
 }
 
-public class UCWSDKPublic {
+public class UCWPublic {
     var handler: String?
     var secretsFile: String
 
@@ -393,11 +393,11 @@ public class UCWSDKPublic {
     }
 
     deinit {
-        print("UCWSDKPublic deinitialization")
+        print("UCWPublic deinitialization")
         do {
             try self.close()
         } catch {
-            print("Error during UCWSDKPublic deinitialization: \(error)")
+            print("Error during UCWPublic deinitialization: \(error)")
         }
     }
 
