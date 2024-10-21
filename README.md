@@ -43,12 +43,12 @@ import UCWSDK
 Use the UCW SDK to initialize a secrets and return a new TSS Node ID.
 
 ```swift
-let database = "secrets.db"
+let secrets = "secrets.db"
 let passphrase = "uKm7@_NQ4xiQn7UbU-!JXaMdJa*BgNJj"
 
 Task {
     do {
-        let nodeID = try await initializeSecrets(secretsFile: database, passphrase: passphrase)
+        let nodeID = try await initializeSecrets(secretsFile: secrets, passphrase: passphrase)
         print(" TSS Node ID: \(nodeID)")
     } catch {
         print("Error: \(error)")
