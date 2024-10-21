@@ -112,7 +112,7 @@ struct NodeResult: Codable {
 }
 
 public struct SDKInfo: Codable {
-    let version: String
+    public let version: String
 
     enum CodingKeys: String, CodingKey {
         case version = "version"
@@ -128,9 +128,9 @@ struct RecoverResult: Codable {
 }
 
 public struct PrivateKeyInfo: Codable {
-    let bip32Path: String
-    let publicKey: String
-    let privateKey: PrivateKey?
+    public let bip32Path: String
+    public let publicKey: String
+    public let privateKey: PrivateKey?
 
     enum CodingKeys: String, CodingKey {
         case bip32Path = "bip32_path"
@@ -139,9 +139,9 @@ public struct PrivateKeyInfo: Codable {
     }
 }
 
-struct PrivateKey: Codable {
-    let extPrivateKey: String
-    let hexPrivateKey: String
+public struct PrivateKey: Codable {
+    public let extPrivateKey: String
+    public let hexPrivateKey: String
 
     enum CodingKeys: String, CodingKey {
         case extPrivateKey = "extended_private_key"
