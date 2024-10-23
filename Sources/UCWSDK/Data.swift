@@ -43,20 +43,20 @@ public enum GroupType: Int32, Codable {
 }
 
 public enum ConnCode: Int32 {
-    case CodeUnknown = 0
+    case unknown = 0
 
-    case CodeConnected = 1300
-    case CodeDisconnected = 1301
-    case CodeConnectClose = 1302
+    case connected = 1300
+    case disconnected = 1301
+    case connectClose = 1302
 
-    case CodeConnectError = 1310
-    case CodeConnectURLParseError = 1311
+    case connectError = 1310
+    case connectURLParseError = 1311
 
-    case CodeConnectRefused = 1320
-    case CodeConnectFail = 1321
+    case connectRefused = 1320
+    case connectFail = 1321
 
-    case CodeConnectProxyError = 1350
-    case CodeConnectProxyParseError = 1351
+    case connectProxyError = 1350
+    case connectProxyParseError = 1351
 }
 
 public struct SDKConfig {
