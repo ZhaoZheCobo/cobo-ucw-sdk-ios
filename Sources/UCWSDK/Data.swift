@@ -31,12 +31,6 @@ public enum Status: Int32, Codable {
     case completed = 190
 }
 
-public enum NodeType: Int32, Codable {
-    case coboCoSigner = 20
-    case mobileCoSigner = 30
-    case apiCoSigner = 31
-}
-
 public enum GroupType: Int32, Codable {
     case ecdsaTSS = 1
     case eddsaTSS = 2
@@ -170,7 +164,7 @@ public struct TSSKeyShareGroup: Codable {
     // public let canonicalGroupID: String
     // public let protocolGroupID: String
     // public let protocolType: String
-    public let createdTime: String
+    public let createdTimeStamp: Int64
     public let type: GroupType
     public let rootPubKey: String
     public let chainCode: String
@@ -183,7 +177,7 @@ public struct TSSKeyShareGroup: Codable {
         // case canonicalGroupID = "canonical_group_id"
         // case protocolGroupID = "protocol_group_id"
         // case protocolType = "protocol_type"
-        case createdTime = "created_time"
+        case createdTimeStamp = "created_timestamp"
         case type = "type"
         case rootPubKey = "root_extended_public_key"
         case chainCode = "chaincode"
