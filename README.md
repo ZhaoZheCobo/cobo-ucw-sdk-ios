@@ -1,5 +1,7 @@
 # Cobo UCW SDK iOS
 
+The Cobo UCW SDK provided by Cobo that allows your Client App to interact with the Cobo Server. A user-facing Client App you build that utilizes the UCW SDK is for Cobo MPC Wallets (User-Controlled Wallets). For a high-level overview of what User-Controlled Wallets are, see [Introduction to User-Controlled Wallets](https://manuals.cobo.com/en/portal/mpc-wallets/introduction#user-controlled-wallets).
+
 ## Installation
 
 The [Swift Package Manager](https://swift.org/package-manager/) (SwiftPM) is a tool for managing the distribution of Swift code. It’s integrated with the Swift build system to automate the process of downloading, compiling, and linking dependencies.
