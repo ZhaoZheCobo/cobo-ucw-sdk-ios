@@ -164,7 +164,7 @@ public struct TSSKeyShareGroup: Codable {
     // public let canonicalGroupID: String
     // public let protocolGroupID: String
     // public let protocolType: String
-    public let createdTimeStamp: Int64
+    public let createdTimestamp: Int64
     public let type: GroupType
     public let rootPubKey: String
     public let chainCode: String
@@ -177,7 +177,7 @@ public struct TSSKeyShareGroup: Codable {
         // case canonicalGroupID = "canonical_group_id"
         // case protocolGroupID = "protocol_group_id"
         // case protocolType = "protocol_type"
-        case createdTimeStamp = "created_timestamp"
+        case createdTimestamp = "created_timestamp"
         case type = "type"
         case rootPubKey = "root_extended_public_key"
         case chainCode = "chaincode"
