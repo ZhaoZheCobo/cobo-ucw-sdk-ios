@@ -57,8 +57,3 @@ Task {
     }
 }
 ```
-
-##  Notice
-
-Please note that the new UCW SDK has not been released yet, so it is not functional at the moment.
-Please be patient and wait for its release.
