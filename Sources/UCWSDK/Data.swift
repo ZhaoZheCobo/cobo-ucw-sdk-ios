@@ -32,8 +32,22 @@ public enum Status: Int32, Codable {
 }
 
 public enum GroupType: Int32, Codable {
-    case ecdsaTSS = 1
-    case eddsaTSS = 2
+    case ECDSA = 1
+    case EdDSA = 2
+}
+
+public enum SignatureType: Int32, Codable {
+    case Unknown = 0
+    case ECDSA = 1
+    case EdDSA = 2
+    case Schnorr = 3
+}
+
+public enum TssProtocol: Int32, Codable {
+    case Default = 0
+    case GG18 = 1
+    case Lindell = 2
+    case EdDSATSS = 3
 }
 
 public enum ConnCode: Int32 {
@@ -73,11 +87,11 @@ public enum Env: String {
 
 public struct AddressInfo: Codable {
     public let bip32Path: String
-    public let pubKey: String
+    public let publicKey: String
 
-    public init(bip32Path: String, pubKey: String) {
+    public init(bip32Path: String, publicKey: String) {
         self.bip32Path = bip32Path
-        self.pubKey = pubKey
+        self.publicKey = publicKey
     }
 }
 
@@ -262,8 +276,8 @@ public struct Transaction: Codable {
 }
 
 public struct SignDetail: Codable {
-    public let signatureType: Int32
-    public let tssProtocol: Int32
+    public let signatureType: SignatureType
+    public let tssProtocol: TssProtocol
     public let bip32PathList: [String]?
     public let msgHashList: [String]?
     public let tweakList: [String]?
@@ -279,8 +293,8 @@ public struct SignDetail: Codable {
 
 public struct Signatures: Codable {
     public let signatures: [Signature]?
-    public let signatureType: Int32?
-    public let tssProtocol: Int32?
+    public let signatureType: SignatureType?
+    public let tssProtocol: TssProtocol?
 
     enum CodingKeys: String, CodingKey {
         case signatures = "signatures"

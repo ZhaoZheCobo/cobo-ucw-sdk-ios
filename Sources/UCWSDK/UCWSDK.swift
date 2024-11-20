@@ -32,7 +32,7 @@ public class UCW: UCWPublic {
 
     public init(config: SDKConfig, secretsFile: String, passphrase: String, connCallback: @escaping(ConnCode, String?) -> Void = { _, _ in }) throws {
         self.config = config
-        self.connCode = ConnCode.CodeUnknown
+        self.connCode = ConnCode.unknown
         self.connMessage = nil
         try super.init(secretsFile: secretsFile)
         self.handler = nil
@@ -54,7 +54,7 @@ public class UCW: UCWPublic {
         tssSDKConfig.debug = self.config.debug
 
         guard let result = TssOpen(tssSDKConfig, self.secretsFile, passphrase, TssCallback { [weak self] code, message in
-            self?.connCode = ConnCode(rawValue: Int32(code)) ?? .CodeUnknown
+            self?.connCode = ConnCode(rawValue: Int32(code)) ?? .unknown
             self?.connMessage = message
             if let connCode = self?.connCode, let connMessage = self?.connMessage {
                 connCallback(connCode, connMessage)
@@ -84,7 +84,7 @@ public class UCW: UCWPublic {
             throw SDKError.apiError(code: result.code, message: result.message)
         }
         self.handler = nil
-        self.connCode = ConnCode.CodeUnknown
+        self.connCode = ConnCode.unknown
         self.connMessage = nil
     }
 
