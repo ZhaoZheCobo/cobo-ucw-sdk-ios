@@ -20,8 +20,8 @@ let package = Package(
             ]
         ),
         .binaryTarget(name: "TSSSDK", 
-            url: "https://cobo-tss-node.s3.amazonaws.com/sdk/v0.11.9/cobo-tss-sdk-v2-ios-v0.11.9.zip",
-            checksum: "f1749d44f84b412c0f441e0df2d00ba4bfe969cb4265e484a5fb0c3284c76937"
+            url: "https://cobo-tss-node.s3.amazonaws.com/sdk/v0.12.9/cobo-tss-sdk-v2-ios-v0.12.9.zip",
+            checksum: "a314455f3139b8bb9220998a42a370e6d6aee3d0f9a530644d18828a0a687252"
         ),
     ]
 )

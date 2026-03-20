@@ -52,6 +52,7 @@ public class UCW: UCWPublic {
         tssSDKConfig.env = self.config.env.rawValue
         // tssSDKConfig.txVerifyURL = self.config.txVerifyURL
         tssSDKConfig.debug = self.config.debug
+        tssSDKConfig.ucwMode = self.config.ucwMode
 
         guard let result = TssOpen(tssSDKConfig, self.secretsFile, passphrase, TssCallback { [weak self] code, message in
             self?.connCode = ConnCode(rawValue: Int32(code)) ?? .unknown

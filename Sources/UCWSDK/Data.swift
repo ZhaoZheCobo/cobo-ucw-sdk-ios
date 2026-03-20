@@ -71,11 +71,13 @@ public struct SDKConfig {
     public let env: Env
     public let timeout: Int32
     public let debug: Bool
+    public let ucwMode: Bool
 
-    public init(env: Env, timeout: Int32, debug: Bool) {
+    public init(env: Env, timeout: Int32, debug: Bool, ucwMode: Bool) {
         self.env = env
         self.timeout = timeout
         self.debug = debug
+        self.ucwMode = ucwMode
     }
 }
 
